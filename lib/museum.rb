@@ -23,6 +23,28 @@ class Museum
   end
 
   def admit(patron)
-    @patrons << patron 
+    @patrons << patron
+  end
+
+  def patrons_by_exhibit_interest
+    exhibits_with_patrons = {}
+    @exhibits.each do |exhibit|
+      @patrons.each do |patron|
+        recommend_exhibits(patron).each do |rec_exhibit|
+          if rec_exhibit == exhibit
+          # require 'pry';binding.pry
+            if exhibits_with_patrons[exhibit]
+              exhibits_with_patrons[exhibit] << patron
+            else
+              exhibits_with_patrons[exhibit] = [patron]
+            end
+          end
+          if exhibits_with_patrons[exhibit].nil?
+            exhibits_with_patrons[exhibit] =[]
+          end 
+        end
+      end
+    end
+    exhibits_with_patrons
   end
 end
