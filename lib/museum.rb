@@ -41,10 +41,16 @@ class Museum
           end
           if exhibits_with_patrons[exhibit].nil?
             exhibits_with_patrons[exhibit] =[]
-          end 
+          end
         end
       end
     end
     exhibits_with_patrons
+  end
+
+  def ticket_lottery_contestants(exhibit)
+    @patrons.select do |patron|
+      patron.spending_money < exhibit.cost
+    end 
   end
 end
