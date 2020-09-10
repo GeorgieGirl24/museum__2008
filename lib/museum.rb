@@ -32,7 +32,6 @@ class Museum
       @patrons.each do |patron|
         recommend_exhibits(patron).each do |rec_exhibit|
           if rec_exhibit == exhibit
-          # require 'pry';binding.pry
             if exhibits_with_patrons[exhibit]
               exhibits_with_patrons[exhibit] << patron
             else
@@ -51,6 +50,10 @@ class Museum
   def ticket_lottery_contestants(exhibit)
     @patrons.select do |patron|
       patron.spending_money < exhibit.cost
-    end 
+    end
+  end
+
+  def draw_lottery_winner(exhibit)
+    ticket_lottery_contestants(exhibit).sample.name
   end
 end
